@@ -15,7 +15,6 @@ const compression = require("compression");
 const helmet = require("helmet");
 const fileUpload = require("express-fileupload");
 const { frontendUrl } = require("./helper.js");
-const path = require("path");
 // All imports end here---
 
 const app = express();
@@ -23,7 +22,7 @@ const app = express();
 // Enable CORS for all routes--
 
 const corsOptions = {
-  origin: [frontendUrl, "*"],
+  origin: [frontendUrl, `${frontendUrl}/products`, `${frontendUrl}/login`],
   credentials: true,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   optionsSuccessStatus: 204,
@@ -76,11 +75,6 @@ app.use("/api/v1", paymentRoute);
 
 // middleware for errors--
 app.use(errorMiddleware);
-
-// serving static file--
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
-});
 
 const server = app.listen(process.env.PORT, () => {
   console.log(`server running on port ${process.env.PORT}`);
