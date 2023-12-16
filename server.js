@@ -22,7 +22,7 @@ const app = express();
 // Enable CORS for all routes--
 
 const corsOptions = {
-  origin: [frontendUrl, `${frontendUrl}/products`, `${frontendUrl}/login`],
+  origin: frontendUrl,
   credentials: true,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   optionsSuccessStatus: 204,
