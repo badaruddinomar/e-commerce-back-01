@@ -6,6 +6,8 @@ const sendToken = (user, statusCode, res, message = null) => {
   const options = {
     httpOnly: true,
     expiresIn: process.env.JWT_COOKIE_EXPIRATION,
+    secure: true,
+    sameSite: "None",
   };
 
   res.status(statusCode).cookie("token", token, options).json({
