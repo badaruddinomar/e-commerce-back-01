@@ -15,6 +15,7 @@ const compression = require("compression");
 const helmet = require("helmet");
 const fileUpload = require("express-fileupload");
 const { frontendUrl } = require("./helper.js");
+const path = require("path");
 // All imports end here---
 
 const app = express();
@@ -75,6 +76,14 @@ app.use("/api/v1", paymentRoute);
 
 // middleware for errors--
 app.use(errorMiddleware);
+
+// serving static file--
+const __variableOfChoice = path.resolve();
+app.use(express.static(path.join(__variableOfChoice, "/frontend/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__variableOfChoice, "frontend", "dist", "index.html"));
+});
 
 const server = app.listen(process.env.PORT, () => {
   console.log(`server running on port ${process.env.PORT}`);
