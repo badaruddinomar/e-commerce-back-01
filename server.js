@@ -14,7 +14,7 @@ const orderRoute = require("./routes/orderRoute");
 const compression = require("compression");
 const helmet = require("helmet");
 const fileUpload = require("express-fileupload");
-const { frontendUrl } = require("./helper.js");
+// const { frontendUrl } = require("./helper.js");
 // All imports end here---
 
 const app = express();
@@ -22,7 +22,7 @@ const app = express();
 // Enable CORS for all routes--
 
 const corsOptions = {
-  origin: frontendUrl,
+  origin: "https://e-commerce-01.onrender.com/",
   credentials: true,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   optionsSuccessStatus: 204,
