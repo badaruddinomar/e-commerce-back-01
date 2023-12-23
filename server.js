@@ -68,6 +68,13 @@ mongoose
   .catch((err) => console.log(err.message));
 
 // all root routes--
+app.get("/", async (req, res) => {
+  try {
+    res.send("hello");
+  } catch (err) {
+    console.log(err);
+  }
+});
 app.use("/api/v1", productRoute);
 app.use("/api/v1", userRoute);
 app.use("/api/v1", orderRoute);
