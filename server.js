@@ -14,7 +14,7 @@ const orderRoute = require("./routes/orderRoute");
 const compression = require("compression");
 const helmet = require("helmet");
 const fileUpload = require("express-fileupload");
-// const { frontendUrl } = require("./helper.js");
+const { frontendUrl } = require("./helper.js");
 // All imports end here---
 
 const app = express();
@@ -22,26 +22,16 @@ const app = express();
 // Enable CORS for all routes--
 
 const corsOptions = {
-  origin: "https://e-commerce-01.onrender.com/",
+  origin: frontendUrl,
   credentials: true,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  optionsSuccessStatus: 204,
+  // optionsSuccessStatus: 204,
+  optionsSuccessStatus: 200,
   allowedHeaders: "Content-Type,Authorization",
 };
 app.use(cors(corsOptions));
 app.use(helmet());
 app.use(compression());
-// app.use((req, res, next) => {
-//   res.header("Access-Control-Allow-Origin", `${frontendUrl}`);
-//   res.header("Access-Control-Allow-Credentials", true);
-//   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-//   res.header(
-//     "Access-Control-Allow-Headers",
-//     "Origin, X-Requested-With, Content-Type, Accept"
-//   );
-//   next();
-// });
-
 app.use(express.json());
 app.use(fileUpload());
 app.use(cookieParser());
