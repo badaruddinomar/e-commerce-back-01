@@ -14,6 +14,7 @@ const orderRoute = require("./routes/orderRoute");
 const compression = require("compression");
 const helmet = require("helmet");
 const fileUpload = require("express-fileupload");
+const apicache = require("apicache");
 const { frontendUrl } = require("./helper.js");
 // All imports end here---
 
@@ -35,6 +36,8 @@ app.use(compression());
 app.use(express.json());
 app.use(fileUpload());
 app.use(cookieParser());
+//here we cached all routes
+app.use(cache("5 minutes"));
 
 // import frontend build folder--
 app.use(express.static("dist"));
