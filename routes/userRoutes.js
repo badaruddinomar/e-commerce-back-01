@@ -1,5 +1,7 @@
 /* eslint-disable no-undef */
+const apicache = require("apicache");
 const express = require("express");
+let cache = apicache.middleware;
 const {
   registerUser,
   loginUser,
@@ -33,7 +35,12 @@ router.route("/password/update").put(isAuthenticatedUser, updateUserPassword);
 router.route("/updateMyProfile").put(isAuthenticatedUser, updateUserProfile);
 router
   .route("/admin/users")
-  .get(isAuthenticatedUser, authorizeRoles("admin"), getAllUsers);
+  .get(
+    cache("5 minutes"),
+    isAuthenticatedUser,
+    authorizeRoles("admin"),
+    getAllUsers
+  );
 router
   .route("/admin/user/:id")
   .get(isAuthenticatedUser, authorizeRoles("admin"), getSingleUserForAdmin)

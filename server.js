@@ -14,12 +14,10 @@ const orderRoute = require("./routes/orderRoute");
 const compression = require("compression");
 const helmet = require("helmet");
 const fileUpload = require("express-fileupload");
-const apicache = require("apicache");
 const { frontendUrl } = require("./helper.js");
 // All imports end here---
 
 const app = express();
-let cache = apicache.middleware;
 // Enable CORS for all routes--
 
 const corsOptions = {
@@ -36,11 +34,6 @@ app.use(compression());
 app.use(express.json());
 app.use(fileUpload());
 app.use(cookieParser());
-//here we cached all routes
-app.use(cache("5 minutes"));
-
-// import frontend build folder--
-app.use(express.static("dist"));
 
 // handling uncaught exceptions--
 process.on("uncaughtException", (err) => {
@@ -68,10 +61,10 @@ app.get("/", async (req, res) => {
     console.log(err);
   }
 });
-app.use("/api/v1", productRoute);
 app.use("/api/v1", userRoute);
-app.use("/api/v1", orderRoute);
 app.use("/api/v1", paymentRoute);
+app.use("/api/v1", productRoute);
+app.use("/api/v1", orderRoute);
 
 // middleware for errors--
 app.use(errorMiddleware);
