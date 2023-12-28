@@ -19,7 +19,7 @@ const { frontendUrl } = require("./helper.js");
 // All imports end here---
 
 const app = express();
-
+let cache = apicache.middleware;
 // Enable CORS for all routes--
 
 const corsOptions = {
