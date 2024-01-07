@@ -6,7 +6,6 @@ const sendEmail = require("./../utils/sendEmail");
 const crypto = require("crypto");
 const cloudinary = require("../middleware/cloudinary");
 const { frontendUrl } = require("./../helper");
-
 // Register a user--
 exports.registerUser = async (req, res, next) => {
   try {
@@ -77,7 +76,6 @@ exports.loginUser = async (req, res, next) => {
 exports.googleAuth = async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email });
-    console.log(user);
     if (user) {
       sendToken(user, 200, res, "Login successful");
     } else {
@@ -167,8 +165,6 @@ exports.resetPassword = async (req, res, next) => {
       .createHash("sha256")
       .update(req.params.token)
       .digest("hex");
-    console.log(resetPasswordToken === req.params.token);
-
     const user = await User.findOne({
       resetPasswordToken,
       resetPasswordExpires: { $gt: Date.now() },

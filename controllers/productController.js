@@ -3,7 +3,6 @@ const ApiFeatures = require("../utils/apiFeatures");
 const Product = require("./../models/productModel");
 const ErrorHandler = require("./../utils/errorHandler");
 const cloudinary = require("../middleware/cloudinary");
-
 // create product routes--Admin-route
 exports.createProduct = async (req, res) => {
   try {
@@ -260,11 +259,8 @@ exports.deleteReview = async (req, res, next) => {
 
     // Filtering reviews for deleting--
     const reviews = product.reviews.filter((rev) => {
-      console.log(rev._id.toString() !== req.query.revId.toString());
       return rev._id.toString() !== req.query.revId.toString();
     });
-    console.log(reviews);
-
     // making average ratings of products--
     const totalRatings = reviews.reduce((acc, rev) => {
       return acc + rev.rating;
@@ -274,9 +270,6 @@ exports.deleteReview = async (req, res, next) => {
     if (totalRatings === 0 && reviews.length === 0) {
       avgRatings = 0;
     }
-
-    console.log(reviews);
-    console.log(totalRatings, avgRatings, numOfReviews);
 
     await Product.findByIdAndUpdate(
       req.query.productId,

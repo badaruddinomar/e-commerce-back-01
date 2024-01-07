@@ -2,7 +2,6 @@
 const Order = require("./../models/orederModel");
 const Product = require("./../models/productModel");
 const ErrorHandler = require("./../utils/errorHandler");
-
 // Create new Order---
 exports.createOrder = async (req, res) => {
   try {
